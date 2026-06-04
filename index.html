@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>FoodWise Smart Meal Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Interactive Food Planning Project</span>
+        <h1>FoodWise</h1>
+        <p>
+          Generate smart meal ideas, build weekly meal plans, track meal categories,
+          create grocery lists, and reduce food waste using a simple interactive planner.
+        </p>
+
+        <div class="hero-actions">
+          <button onclick="generateMeal()">Generate Meal Idea</button>
+          <button class="ghost" onclick="exportGroceryList()">Export Grocery List</button>
+          <button class="danger" onclick="resetAll()">Reset Data</button>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <span>This Week</span>
+        <h2 id="plannedMeals">0 Meals</h2>
+        <p id="mealFocus">Start planning your first meal.</p>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span>Total Meals</span>
+        <strong id="totalMeals">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Grocery Items</span>
+        <strong id="totalGroceries">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Healthy Meals</span>
+        <strong id="healthyMeals">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Estimated Cost</span>
+        <strong id="estimatedCost">RM 0</strong>
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="panel">
+        <h2>Smart Meal Generator</h2>
+
+        <label for="mealGoal">Meal Goal</label>
+        <select id="mealGoal">
+          <option>Healthy</option>
+          <option>Budget</option>
+          <option>High Protein</option>
+          <option>Quick Meal</option>
+          <option>Vegetarian</option>
+          <option>Comfort Food</option>
+        </select>
+
+        <label for="mealTime">Meal Time</label>
+        <select id="mealTime">
+          <option>Breakfast</option>
+          <option>Lunch</option>
+          <option>Dinner</option>
+          <option>Snack</option>
+        </select>
+
+        <button onclick="generateMeal()">Generate Meal Idea</button>
+
+        <div id="mealSuggestion" class="suggestion-box">
+          <h3>No meal generated yet</h3>
+          <p>Choose your goal and meal time, then generate a meal idea.</p>
+        </div>
+
+        <div class="ai-box">
+          <h3>AI-Style FoodWise Tip</h3>
+          <p id="foodTip">
+            Start by planning 3 simple meals first. A small weekly plan is easier to maintain.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Add Custom Meal</h2>
+
+        <label for="customMealName">Meal Name</label>
+        <input id="customMealName" type="text" placeholder="Example: Chicken rice bowl" />
+
+        <label for="customMealType">Meal Type</label>
+        <select id="customMealType">
+          <option>Breakfast</option>
+          <option>Lunch</option>
+          <option>Dinner</option>
+          <option>Snack</option>
+        </select>
+
+        <label for="customMealGoal">Meal Category</label>
+        <select id="customMealGoal">
+          <option>Healthy</option>
+          <option>Budget</option>
+          <option>High Protein</option>
+          <option>Quick Meal</option>
+          <option>Vegetarian</option>
+          <option>Comfort Food</option>
+        </select>
+
+        <label for="customIngredients">Ingredients</label>
+        <textarea id="customIngredients" placeholder="Example: chicken, rice, egg, cucumber"></textarea>
+
+        <label for="customCost">Estimated Cost RM</label>
+        <input id="customCost" type="number" value="10" />
+
+        <button onclick="addCustomMeal()">Add Meal to Plan</button>
+      </div>
+    </section>
+
+    <section class="layout second">
+      <div class="panel">
+        <h2>Grocery List</h2>
+        <div id="groceryList" class="grocery-list">
+          <p class="muted">No grocery items yet.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Meal Category Breakdown</h2>
+        <div id="categoryBreakdown">
+          <p class="muted">No meal data yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="history-section">
+      <div class="history-header">
+        <div>
+          <h2>Weekly Meal Plan</h2>
+          <p>Search, filter, review, and manage your planned meals.</p>
+        </div>
+
+        <div class="filters">
+          <input id="searchInput" type="text" placeholder="Search meals..." oninput="renderApp()" />
+
+          <select id="filterMealType" onchange="renderApp()">
+            <option>All</option>
+            <option>Breakfast</option>
+            <option>Lunch</option>
+            <option>Dinner</option>
+            <option>Snack</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="mealHistory" class="meal-grid">
+        <div class="empty-box wide">
+          <h3>No meals planned yet</h3>
+          <p>Add or generate a meal to start your weekly meal plan.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
