@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>FoodWise Smart Meal Planner</title>
+  <title>FoodWise Pro - Smart Meal Planner</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -12,15 +12,16 @@
     <section class="hero">
       <div>
         <span class="eyebrow">Interactive Food Planning Project</span>
-        <h1>FoodWise</h1>
+        <h1>FoodWise Pro</h1>
         <p>
-          Generate smart meal ideas, build weekly meal plans, track meal categories,
-          create grocery lists, and reduce food waste using a simple interactive planner.
+          Plan your meals smarter, generate meal ideas, track nutrition goals,
+          manage groceries, estimate weekly cost, and reduce food waste.
         </p>
 
         <div class="hero-actions">
           <button onclick="generateMeal()">Generate Meal Idea</button>
-          <button class="ghost" onclick="exportGroceryList()">Export Grocery List</button>
+          <button class="ghost" onclick="loadDemoData()">Load Demo Data</button>
+          <button class="ghost" onclick="exportGroceryList()">Export Grocery CSV</button>
           <button class="danger" onclick="resetAll()">Reset Data</button>
         </div>
       </div>
@@ -52,6 +53,26 @@
         <span>Estimated Cost</span>
         <strong id="estimatedCost">RM 0</strong>
       </div>
+
+      <div class="stat-card">
+        <span>Total Calories</span>
+        <strong id="totalCalories">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Protein</span>
+        <strong id="totalProtein">0g</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Waste Risk</span>
+        <strong id="wasteRisk">Low</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Plan Score</span>
+        <strong id="planScore">0%</strong>
+      </div>
     </section>
 
     <section class="layout">
@@ -66,6 +87,8 @@
           <option>Quick Meal</option>
           <option>Vegetarian</option>
           <option>Comfort Food</option>
+          <option>Low Calorie</option>
+          <option>Energy Boost</option>
         </select>
 
         <label for="mealTime">Meal Time</label>
@@ -74,6 +97,15 @@
           <option>Lunch</option>
           <option>Dinner</option>
           <option>Snack</option>
+        </select>
+
+        <label for="dietType">Diet Preference</label>
+        <select id="dietType">
+          <option>Any</option>
+          <option>Halal-Friendly</option>
+          <option>Vegetarian</option>
+          <option>No Seafood</option>
+          <option>No Dairy</option>
         </select>
 
         <button onclick="generateMeal()">Generate Meal Idea</button>
@@ -113,13 +145,45 @@
           <option>Quick Meal</option>
           <option>Vegetarian</option>
           <option>Comfort Food</option>
+          <option>Low Calorie</option>
+          <option>Energy Boost</option>
         </select>
 
         <label for="customIngredients">Ingredients</label>
         <textarea id="customIngredients" placeholder="Example: chicken, rice, egg, cucumber"></textarea>
 
-        <label for="customCost">Estimated Cost RM</label>
-        <input id="customCost" type="number" value="10" />
+        <div class="mini-grid">
+          <div>
+            <label for="customCost">Estimated Cost RM</label>
+            <input id="customCost" type="number" value="10" />
+          </div>
+
+          <div>
+            <label for="customCalories">Calories</label>
+            <input id="customCalories" type="number" value="450" />
+          </div>
+
+          <div>
+            <label for="customProtein">Protein g</label>
+            <input id="customProtein" type="number" value="25" />
+          </div>
+
+          <div>
+            <label for="customPrep">Prep Time min</label>
+            <input id="customPrep" type="number" value="20" />
+          </div>
+        </div>
+
+        <label for="customDay">Planned Day</label>
+        <select id="customDay">
+          <option>Monday</option>
+          <option>Tuesday</option>
+          <option>Wednesday</option>
+          <option>Thursday</option>
+          <option>Friday</option>
+          <option>Saturday</option>
+          <option>Sunday</option>
+        </select>
 
         <button onclick="addCustomMeal()">Add Meal to Plan</button>
       </div>
@@ -134,9 +198,16 @@
       </div>
 
       <div class="panel">
-        <h2>Meal Category Breakdown</h2>
+        <h2>Nutrition & Category Breakdown</h2>
+
+        <h3>Meal Category Breakdown</h3>
         <div id="categoryBreakdown">
           <p class="muted">No meal data yet.</p>
+        </div>
+
+        <h3>Meal Type Breakdown</h3>
+        <div id="typeBreakdown">
+          <p class="muted">No meal type data yet.</p>
         </div>
       </div>
     </section>
@@ -157,6 +228,17 @@
             <option>Lunch</option>
             <option>Dinner</option>
             <option>Snack</option>
+          </select>
+
+          <select id="filterDay" onchange="renderApp()">
+            <option>All Days</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
           </select>
         </div>
       </div>
