@@ -176,7 +176,7 @@ button.danger {
 }
 
 .stat-card strong {
-  font-size: 34px;
+  font-size: 30px;
   color: #16a34a;
 }
 
@@ -223,6 +223,12 @@ textarea {
   margin-top: 16px;
 }
 
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
 .suggestion-box,
 .ai-box,
 .empty-box {
@@ -264,6 +270,11 @@ textarea {
 .pill.alt {
   background: #fef3c7;
   color: #92400e;
+}
+
+.pill.blue {
+  background: #dbeafe;
+  color: #1e40af;
 }
 
 .meal-meta {
@@ -335,7 +346,7 @@ textarea {
 
 .filters {
   display: grid;
-  grid-template-columns: 230px 210px;
+  grid-template-columns: 220px 160px 170px;
   gap: 10px;
 }
 
@@ -367,6 +378,16 @@ textarea {
   grid-column: 1 / -1;
 }
 
+.warning {
+  color: #b45309;
+  font-weight: 900;
+}
+
+.good {
+  color: #16a34a;
+  font-weight: 900;
+}
+
 @media (max-width: 1000px) {
   .hero,
   .layout {
@@ -395,7 +416,8 @@ textarea {
 
   .stats-grid,
   .meal-grid,
-  .filters {
+  .filters,
+  .mini-grid {
     grid-template-columns: 1fr;
   }
 
